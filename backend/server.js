@@ -20,26 +20,41 @@ app.set('trust proxy', 1);
 // middlewares
 
 app.use(express.json())
-app.use(cors(
-    {
-        origin : ['https://cart-verse-gold.vercel.app','http://localhost:5173','http://localhost:5174','http://localhost:4000','https://cart-verse-m5e9.vercel.app','https://cartverse.onrender.com'],
-        credentials: true,
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allowedHeaders: ["Content-Type", "Authorization","token"]
-    }
-))
+// App config
+const app = express();
+// FIX: Ensure PORT is used consistently
+const PORT = process.env.PORT || 4000; 
 
+connectDB();
+connectCloudinary();
 
+app.set('trust proxy', 1);
 
-app.use('/api/cart',cartRouter)
+// middlewares
+app.use(express.json());
+
+// Improved CORS config
+app.use(cors({
+    origin: [
+        'https://cart-verse-gold.vercel.app',
+        'https://cart-verse-m5e9.vercel.app',
+        'https://cartverse.onrender.com',
+        'http://localhost:5173',
+        'http://localhost:5174'
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "token"]
+}));
 
 // api endpoints
-app.use('/api/user',userRouter)
-app.use('/api/product',productRouter)
-app.use('/api/order',orderRouter)
+app.use('/api/cart', cartRouter);
+app.use('/api/user', userRouter);
+app.use('/api/product', productRouter);
+app.use('/api/order', orderRouter);
 
-app.get('/',(req,res)=>{
-    res.send('API WORKING')
-})
+app.get('/', (req, res) => {
+    res.send('API WORKING');
+});
 
-app.listen(port, ()=> console.log('Server started on PORT : '+port))
+app.listen(PORT, () => console.log('Server started on PORT : ' + PORT));
