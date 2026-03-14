@@ -9,21 +9,8 @@ import cartRouter from './routes/cartRoute.js';
 import orderRouter from './routes/orderRoute.js';
 
 // App config
-
-const app = express()
-const PORT = process.env.PORT || 4000
-connectDB()
-connectCloudinary()
-
-app.set('trust proxy', 1);
-
-// middlewares
-
-app.use(express.json())
-// App config
 const app = express();
-// FIX: Ensure PORT is used consistently
-const PORT = process.env.PORT || 4000; 
+const PORT = process.env.PORT || 4000;
 
 connectDB();
 connectCloudinary();
@@ -33,7 +20,6 @@ app.set('trust proxy', 1);
 // middlewares
 app.use(express.json());
 
-// Improved CORS config
 app.use(cors({
     origin: [
         'https://cart-verse-gold.vercel.app',
