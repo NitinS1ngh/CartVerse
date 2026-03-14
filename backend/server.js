@@ -9,21 +9,8 @@ import cartRouter from './routes/cartRoute.js';
 import orderRouter from './routes/orderRoute.js';
 
 // App config
-
-const app = express()
-const PORT = process.env.PORT || 4000
-connectDB()
-connectCloudinary()
-
-app.set('trust proxy', 1);
-
-// middlewares
-
-app.use(express.json())
-// App config
 const app = express();
-// FIX: Ensure PORT is used consistently
-const PORT = process.env.PORT || 4000; 
+const PORT = process.env.PORT || 4000;
 
 connectDB();
 connectCloudinary();
@@ -33,19 +20,25 @@ app.set('trust proxy', 1);
 // middlewares
 app.use(express.json());
 
-// Improved CORS config
-app.use(cors({
-    origin: [
-        'https://cart-verse-gold.vercel.app',
-        'https://cart-verse-m5e9.vercel.app',
-        'https://cartverse.onrender.com',
-        'http://localhost:5173',
-        'http://localhost:5174'
-    ],
+// Build allowed origins from environment variables and hardcoded defaults
+const allowedOrigins = [
+    process.env.FRONTEND_URL,
+    process.env.ADMIN_URL,
+    'https://cart-verse-gold.vercel.app',
+    'https://cart-verse-m5e9.vercel.app',
+    'https://cartverse.onrender.com',
+    'http://localhost:5173',
+    'http://localhost:5174'
+].filter(Boolean);
+
+const corsOptions = {
+    origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "token"]
-}));
+};
+
+app.use(cors(corsOptions));
 
 // api endpoints
 app.use('/api/cart', cartRouter);
