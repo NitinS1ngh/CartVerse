@@ -22,7 +22,7 @@ app.set('trust proxy', 1);
 app.use(express.json())
 app.use(cors(
     {
-        origin : ['https://ecommerce-frontend-one-orcin.vercel.app','http://localhost:5173','http://localhost:5174','http://localhost:4000','https://ecommerce-backend-one-lake.vercel.app','https://ecommerce-frontend-git-main-ajay-kumars-projects-2102f263.vercel.app'],
+        origin : ['https://cart-verse-gold.vercel.app','http://localhost:5173','http://localhost:5174','http://localhost:4000','https://cart-verse-m5e9.vercel.app','https://cartverse.onrender.com'],
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         allowedHeaders: ["Content-Type", "Authorization","token"]
