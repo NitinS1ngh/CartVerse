@@ -55,6 +55,7 @@ RAZORPAY_KEY_ID=your_razorpay_key_id
 RAZORPAY_KEY_SECRET=your_razorpay_key_secret
 CURRENCY=usd
 FRONTEND_URL=http://localhost:5173
+ADMIN_URL=http://localhost:5174
 ```
 
 ### 2. Frontend Setup (Storefront)
